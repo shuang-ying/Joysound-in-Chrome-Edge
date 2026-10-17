@@ -1,0 +1,281 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1f2328;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --card: #f6f7f9;
+  --accent: #c8965a;
+  --accent-2: #e9be80;
+  --ok: #2f9e63;
+  --warn: #c98a1a;
+  --err: #c0392b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1f24;
+    --fg: #e6e8eb;
+    --muted: #9aa1ab;
+    --line: #2f343c;
+    --card: #23272e;
+    --ok: #4ec27f;
+    --warn: #e0a83c;
+    --err: #e5705f;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 326px;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.5 "Segoe UI", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 14px 10px;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+}
+
+.titles {
+  flex: 1;
+  min-width: 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.version {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--ok);
+}
+
+.site {
+  margin: 0 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+}
+
+.site-head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.site-host {
+  font-size: 12px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.switch-row + .switch-row {
+  margin-top: 10px;
+}
+
+.switch-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.switch-label strong {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.switch-label small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.switch {
+  position: relative;
+  flex: none;
+  width: 42px;
+  height: 24px;
+}
+
+.switch input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #c8ccd2;
+  transition: background 0.18s ease;
+}
+
+.slider::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: transform 0.18s ease;
+}
+
+.switch input:checked + .slider {
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+}
+
+.switch input:checked + .slider::after {
+  transform: translateX(18px);
+}
+
+.switch input:disabled + .slider {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #9aa1ab;
+  flex: none;
+}
+
+.dot.ok {
+  background: var(--ok);
+  box-shadow: 0 0 0 3px rgba(47, 158, 99, 0.16);
+}
+
+.dot.warn {
+  background: var(--warn);
+  box-shadow: 0 0 0 3px rgba(201, 138, 26, 0.16);
+}
+
+.dot.err {
+  background: var(--err);
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.16);
+}
+
+.status-text {
+  font-weight: 500;
+}
+
+.detail {
+  margin: 6px 0 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--muted);
+  min-height: 16px;
+  word-break: break-word;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ghost {
+  flex: 1;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 12px;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.ghost:hover {
+  border-color: var(--accent);
+  background: rgba(200, 150, 90, 0.08);
+}
+
+.ghost:active {
+  transform: translateY(0.5px);
+}
+
+.global {
+  margin: 10px 12px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 14px 14px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.sep {
+  opacity: 0.5;
+}

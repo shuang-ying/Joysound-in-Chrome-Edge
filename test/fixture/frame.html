@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>Joysound 测试页（iframe）</title>
+    <style>
+      body {
+        margin: 12px;
+        font: 13px/1.5 system-ui, sans-serif;
+        background: #1a1a1a;
+        color: #ddd;
+      }
+      video {
+        width: 320px;
+        background: #000;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>iframe 内的播放器（跨文档，验证 all_frames 注入）</p>
+    <video id="v" src="tone.wav" autoplay loop playsinline controls></video>
+    <script>
+      document.getElementById("v").play().catch(function () {});
+    </script>
+  </body>
+</html>

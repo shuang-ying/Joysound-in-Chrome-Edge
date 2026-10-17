@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>Joysound 测试页</title>
+    <style>
+      body {
+        margin: 24px;
+        font: 14px/1.6 system-ui, "Microsoft YaHei", sans-serif;
+        background: #111;
+        color: #eee;
+      }
+      video {
+        width: 420px;
+        background: #000;
+        border-radius: 8px;
+      }
+      #info {
+        color: #9aa;
+        font-size: 12px;
+      }
+      .hint {
+        color: #777;
+        font-size: 12px;
+        margin-top: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Joysound 测试页</h1>
+    <p id="info">用于验证扩展是否能接管视频音频，以及切标签页后能否自愈。</p>
+    <div id="stage"></div>
+    <p class="hint">下面是一个 iframe，用来验证跨文档（all_frames）注入：</p>
+    <iframe id="frame" src="frame.html" width="340" height="220" style="border: 1px solid #333; border-radius: 8px"></iframe>
+
+    <script>
+      "use strict";
+      // 模拟真实播放器：会重建 <video> 节点
+      function makeVideo() {
+        const v = document.createElement("video");
+        v.id = "v";
+        v.src = "tone.wav";
+        v.loop = true;
+        v.autoplay = true;
+        v.playsInline = true;
+        v.controls = true;
+        v.volume = 0.8;
+        return v;
+      }
+
+      function mount() {
+        const v = makeVideo();
+        document.getElementById("stage").appendChild(v);
+        v.play().catch(function () {});
+        return v;
+      }
+      mount();
+
+      window.testApi = {
+        video() {
+          return document.getElementById("v");
+        },
+        /** 播放器重建：换一个全新的 <video>（很多站点切回来时就是这么干的） */
+        replace() {
+          const old = document.getElementById("v");
+          const next = makeVideo();
+          if (old) old.replaceWith(next);
+          else document.getElementById("stage").appendChild(next);
+          next.play().catch(function () {});
+          return true;
+        },
+        remove() {
+          const v = document.getElementById("v");
+          if (v) v.remove();
+        },
+        play() {
+          const v = document.getElementById("v");
+          return v ? v.play().then(() => true).catch(() => false) : false;
+        },
+        pause() {
+          const v = document.getElementById("v");
+          if (v) v.pause();
+        },
+        /** 模拟 visibilitychange（CDP 不好直接切可见性） */
+        visibility(visible) {
+          Object.defineProperty(document, "visibilityState", {
+            configurable: true,
+            get: () => (visible ? "visible" : "hidden"),
+          });
+          Object.defineProperty(document, "hidden", {
+            configurable: true,
+            get: () => !visible,
+          });
+          document.dispatchEvent(new Event("visibilitychange"));
+        },
+        pageShow() {
+          window.dispatchEvent(new PageTransitionEvent("pageshow", { persisted: false }));
+        },
+        engine() {
+          return window.__joysoundEngineApi || null;
+        },
+        status() {
+          return window.__joysoundEngineApi ? window.__joysoundEngineApi.status() : null;
+        },
+        meter() {
+          return window.__joysoundEngineApi ? window.__joysoundEngineApi.meter() : null;
+        },
+        sessions() {
+          if (!window.__joysoundEngineApi) return null;
+          return window.__joysoundEngineApi.sessions().map(function (s) {
+            return {
+              elIsCurrent: s.el === document.getElementById("v"),
+              ctx: s.ctx ? s.ctx.state : "none",
+              ack: !!s.applied,
+              bypassed: !!s.bypassed,
+              failed: s.failed || "",
+              hasSource: !!(s.js && s.js._source),
+              decoded: s.el.webkitAudioDecodedByteCount,
+              paused: s.el.paused,
+              currentTime: Number(s.el.currentTime.toFixed(2)),
+            };
+          });
+        },
+        /** 站点侧再捕获一次：扩展必须让它不抛异常（也不能把声音弄哑） */
+        pageRecapture() {
+          const v = document.getElementById("v");
+          const ctx = new AudioContext();
+          try {
+            const node = ctx.createMediaElementSource(v);
+            const ok = !!node;
+            ctx.close();
+            return { ok: ok, name: node && node.constructor && node.constructor.name };
+          } catch (e) {
+            try {
+              ctx.close();
+            } catch (_) {}
+            return { ok: false, error: String(e && e.name) };
+          }
+        },
+        suspendContext() {
+          const api = window.__joysoundEngineApi;
+          if (!api) return false;
+          const list = api.sessions();
+          if (!list.length || !list[0].ctx) return false;
+          list[0].ctx.suspend();
+          return true;
+        },
+        contextState() {
+          const api = window.__joysoundEngineApi;
+          if (!api) return "none";
+          const list = api.sessions();
+          return list.length && list[0].ctx ? list[0].ctx.state : "none";
+        },
+      };
+    </script>
+  </body>
+</html>

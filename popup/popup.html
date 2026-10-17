@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+    <title>Joysound 音效增强</title>
+  </head>
+  <body>
+    <header class="header">
+      <img class="logo" src="../icons/icon48.png" alt="" />
+      <div class="titles">
+        <h1>Joysound 音效增强</h1>
+        <p class="version">v<span id="version">1.0.0</span></p>
+      </div>
+      <span class="badge" id="badge" hidden></span>
+    </header>
+
+    <section class="site">
+      <div class="site-head">
+        <span class="site-host" id="host">—</span>
+      </div>
+
+      <label class="switch-row">
+        <span class="switch-label">
+          <strong>在此网站启用</strong>
+          <small>开启后立即接管本页视频，无需刷新</small>
+        </span>
+        <span class="switch">
+          <input type="checkbox" id="site-toggle" />
+          <span class="slider"></span>
+        </span>
+      </label>
+
+      <div class="status" id="status">
+        <span class="dot" id="dot"></span>
+        <span class="status-text" id="status-text">正在读取…</span>
+      </div>
+      <p class="detail" id="detail"></p>
+
+      <div class="actions">
+        <button id="reapply" class="ghost">重新检测</button>
+        <button id="reload" class="ghost" hidden>刷新页面</button>
+      </div>
+    </section>
+
+    <section class="global">
+      <label class="switch-row compact">
+        <span class="switch-label">
+          <strong>总开关</strong>
+          <small>关闭后所有网站都停止接管音频</small>
+        </span>
+        <span class="switch">
+          <input type="checkbox" id="global-toggle" />
+          <span class="slider"></span>
+        </span>
+      </label>
+    </section>
+
+    <footer class="footer">
+      <a href="https://github.com/qianjiachun/joysound-tampermonkey" target="_blank" rel="noreferrer noopener">
+        原版油猴脚本
+      </a>
+      <span class="sep">·</span>
+      <span>音效引擎 Joysound 1.0.1</span>
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

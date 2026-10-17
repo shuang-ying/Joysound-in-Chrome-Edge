@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Joysound 视频音效增强",
+  "short_name": "Joysound",
+  "version": "1.1.0",
+  "description": "为网页视频启用 Joysound 音效增强；切换标签页、播放器重建后自动恢复，关闭时直通原声不卡播。",
+  "minimum_chrome_version": "111",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["storage", "scripting"],
+  "host_permissions": ["*://*/*"],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_title": "Joysound 音效增强",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_start",
+      "world": "MAIN",
+      "js": ["src/content/early.js"]
+    },
+    {
+      "matches": ["*://*/*"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_start",
+      "js": ["src/content/bridge.js"]
+    }
+  ]
+}

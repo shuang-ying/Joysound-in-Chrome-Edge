@@ -1,0 +1,11 @@
+# 第三方引擎与生成物：不入库（见 vendor/README.md）
+vendor/joysound.sdk.js
+
+# 测试时现场生成的音频素材
+test/fixture/tone.wav
+
+# 依赖与临时文件
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
