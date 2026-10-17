@@ -14,8 +14,8 @@
 **注意：仓库里不附带第三方音效引擎**，需要先在本地生成一次（和原版油猴脚本「运行时从官方 CDN 取」同一个思路，只是把这一步挪到了安装时）。
 
 ```bash
-git clone <this-repo>
-cd joysound-extension
+git clone https://github.com/shuang-ying/Joysound-in-Chrome-Edge.git
+cd Joysound-in-Chrome-Edge
 node tools/extract-joysound.js      # 需要 Node 18+ 与网络，生成 vendor/joysound.sdk.js
 ```
 
