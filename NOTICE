@@ -1,0 +1,22 @@
+# NOTICE
+
+Joysound 视频音效增强（Chrome / Edge 扩展）
+
+## 来源与修改
+
+本仓库是 [qianjiachun/joysound-tampermonkey](https://github.com/qianjiachun/joysound-tampermonkey)
+（MIT，`Copyright (c) 2022 小淳`）的**修改版 / 移植版**，并非原作者发布。
+原项目是 Tampermonkey 用户脚本，本项目将其改写为 Manifest V3 浏览器扩展，
+并新增了会话自愈、直通旁路、跨域预检等逻辑。
+
+## 第三方组件
+
+Joysound 音效引擎（`kwai-joysound` 1.0.1）提取自 AcFun 播放器插件包
+（<https://static.yximgs.com/udata/pkg/acfun-player/>），版权归快手 / AcFun 所有，
+**不属于**本项目的 MIT 授权范围。
+
+本仓库**不包含**该引擎文件，只提供 `tools/extract-joysound.js`：
+由使用者在本机执行，从上述官方地址下载并生成 `vendor/joysound.sdk.js` 供扩展加载。
+
+若你 fork 后二次发布，请勿把他人生成的 `vendor/joysound.sdk.js` 提交到公共仓库，
+也不要在 Release 中附带该文件。

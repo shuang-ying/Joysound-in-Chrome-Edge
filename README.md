@@ -230,7 +230,7 @@ node test/e2e.js --headed     # 有头模式，便于观察
 ## 许可与致谢
 
 - 原脚本作者：[qianjiachun](https://github.com/qianjiachun/joysound-tampermonkey)（MIT，`Copyright (c) 2022 小淳`）。
-  本项目是其**修改版/移植版**，并非原作者发布。
+  本项目是其**修改版/移植版**，并非原作者发布，详见 [NOTICE](NOTICE)。
 - **Joysound 音效引擎**：来自 AcFun 播放器（版权归快手 / AcFun 所有），
   本项目**不再分发**该文件，只保留提取脚本，由使用者在本机生成 `vendor/joysound.sdk.js`。
 - 本移植版代码：MIT（见 [LICENSE](LICENSE)）。

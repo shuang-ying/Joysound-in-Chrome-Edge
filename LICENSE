@@ -3,10 +3,6 @@ MIT License
 Copyright (c) 2022 小淳 (https://github.com/qianjiachun/joysound-tampermonkey)
 Copyright (c) 2026 Joysound 扩展移植版作者
 
-本文件是 qianjiachun/joysound-tampermonkey（MIT 许可）的修改版/移植版：
-原项目为 Tampermonkey 用户脚本，本项目将其改写为 Chrome / Edge 的 Manifest V3 扩展，
-并新增了会话自愈、直通旁路、跨域预检等逻辑。
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -24,14 +20,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----------------------------------------------------------------------------
-第三方说明（Third-party notice）
-
-本仓库**不包含** Joysound 音效引擎文件。该引擎（kwai-joysound 1.0.1）提取自
-AcFun 播放器插件包（https://static.yximgs.com/udata/pkg/acfun-player/），
-版权归快手 / AcFun 所有，不属于上述 MIT 授权范围。
-
-仓库只提供 tools/extract-joysound.js，由使用者在本地执行、从上述官方地址下载并提取，
-生成 vendor/joysound.sdk.js 供扩展使用。若你 fork 后二次发布，请勿把他人生成的
-该文件提交到公共仓库。
